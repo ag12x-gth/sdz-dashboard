@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDZ Premium - Dashboard Mentoria</title>
+    <meta name="description" content="Dashboard completo do programa de mentoria SDZ Premium - 6 meses de transformação empresarial">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: #0a0a0a;
+            padding: 20px 0;
+            border-bottom: 1px solid #1a1a1a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 16px;
+            color: #000;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-menu a {
+            color: #cccccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #9ef01a;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(158, 240, 26, 0.1), rgba(112, 224, 0, 0.05));
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #cccccc;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin: 60px 0;
+        }
+
+        .stat-card {
+            background: #111111;
+            padding: 32px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #1a1a1a;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #9ef01a;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #888888;
+            font-weight: 500;
+        }
+
+        /* Section Styles */
+        .section {
+            margin: 80px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #888888;
+            margin-bottom: 40px;
+        }
+
+        /* Company Payment Assistance */
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .payment-card {
+            background: #111111;
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .payment-card:hover {
+            border-color: #9ef01a;
+            transform: translateY(-4px);
+        }
+
+        .payment-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 24px;
+        }
+
+        .payment-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .payment-description {
+            color: #888888;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, #111111, #0a0a0a);
+            border: 1px solid #1a1a1a;
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: #9ef01a;
+            transform: translateY(-4px);
+        }
+
+        .benefit-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .benefit-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .benefit-description {
+            color: #888888;
+            line-height: 1.6;
+        }
+
+        /* ROI Section */
+        .roi-comparison {
+            background: linear-gradient(135deg, #111111, #0a0a0a);
+            border: 1px solid #1a1a1a;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 32px;
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .roi-metric {
+            text-align: center;
+        }
+
+        .roi-value {
+            font-size: 48px;
+            font-weight: 800;
+            color: #9ef01a;
+            margin-bottom: 8px;
+        }
+
+        .roi-label {
+            color: #888888;
+            font-weight: 500;
+        }
+
+        .roi-description {
+            color: #cccccc;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            border-top: 1px solid #1a1a1a;
+            padding: 60px 0 30px;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #888888;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #9ef01a;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #1a1a1a;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #888888;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-links a {
+            color: #888888;
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid #1a1a1a;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #9ef01a;
+            border-color: #9ef01a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-menu {
+                gap: 20px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .payment-options,
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .roi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">S</div>
+                SDZ Premium
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#programa">Programa</a></li>
+                    <li><a href="#beneficios">Benefícios</a></li>
+                    <li><a href="#investimento">Investimento</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="cta-button">Começar Agora</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Programa Mentoria 6 Meses</h1>
+            <p>Transforme sua empresa com nossa mentoria especializada em liderança, vendas e crescimento sustentável</p>
+            
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Meses de Mentoria</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Sessões Individuais</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">300%</div>
+                    <div class="stat-label">ROI Médio</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Taxa de Sucesso</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Payment Assistance -->
+    <section class="section" id="pagamento">
+        <div class="container">
+            <h2 class="section-title">💰 Assistência de Pagamento Empresarial</h2>
+            <p class="section-subtitle">Facilitamos o investimento da sua empresa com opções flexíveis de pagamento</p>
+            
+            <div class="payment-options">
+                <div class="payment-card">
+                    <div class="payment-icon">💳</div>
+                    <h3 class="payment-title">Parcelamento Corporativo</h3>
+                    <p class="payment-description">Divida o investimento em até 12x sem juros para empresas com faturamento comprovado acima de R$ 50k/mês</p>
+                </div>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">🏦</div>
+                    <h3 class="payment-title">Boleto Empresarial</h3>
+                    <p class="payment-description">Pagamento via boleto bancário com prazo estendido de 30 dias para adequação ao fluxo de caixa empresarial</p>
+                </div>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">📊</div>
+                    <h3 class="payment-title">Pagamento por Resultados</h3>
+                    <p class="payment-description">Opção de pagamento baseado em metas de crescimento atingidas durante o programa de mentoria</p>
+                </div>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">🤝</div>
+                    <h3 class="payment-title">Consórcio Empresarial</h3>
+                    <p class="payment-description">Grupos de 3-5 empresas podem dividir custos e compartilhar experiências em sessões colaborativas</p>
+                </div>
+                
+                <div class="payment-card">
+                    <div class="payment-icon">💼</div>
+                    <h3 class="payment-title">Crédito Corporativo</h3>
+                    <p class="payment-description">Parcerias com instituições financeiras para linhas de crédito específicas para desenvolvimento empresarial</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Benefits -->
+    <section class="section" id="beneficios-empresa">
+        <div class="container">
+            <h2 class="section-title">🏢 Benefícios Práticos para Empresas</h2>
+            <p class="section-subtitle">Vantagens concretas que sua empresa obterá com nosso programa</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3 class="benefit-title">Crescimento de Receita</h3>
+                    <p class="benefit-description">Aumento médio de 40-60% na receita através de estratégias de vendas otimizadas e expansão de mercado</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">👥</div>
+                    <h3 class="benefit-title">Desenvolvimento de Equipe</h3>
+                    <p class="benefit-description">Capacitação completa da liderança e equipes de vendas com metodologias comprovadas</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3 class="benefit-title">Otimização de Processos</h3>
+                    <p class="benefit-description">Implementação de sistemas e processos que aumentam a eficiência operacional em até 50%</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">Posicionamento de Mercado</h3>
+                    <p class="benefit-description">Estratégias para diferenciação competitiva e construção de autoridade no seu segmento</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Participant Benefits -->
+    <section class="section" id="beneficios-participantes">
+        <div class="container">
+            <h2 class="section-title">🎓 Benefícios para Participantes</h2>
+            <p class="section-subtitle">Transformação pessoal e profissional dos líderes e colaboradores</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🧠</div>
+                    <h3 class="benefit-title">Mindset de Liderança</h3>
+                    <p class="benefit-description">Desenvolvimento de habilidades de liderança estratégica e tomada de decisão sob pressão</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">💬</div>
+                    <h3 class="benefit-title">Comunicação Avançada</h3>
+                    <p class="benefit-description">Técnicas de comunicação persuasiva, negociação e apresentação para diferentes audiências</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔄</div>
+                    <h3 class="benefit-title">Gestão de Mudanças</h3>
+                    <p class="benefit-description">Capacidade de liderar transformações organizacionais e adaptar-se rapidamente ao mercado</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌟</div>
+                    <h3 class="benefit-title">Networking Estratégico</h3>
+                    <p class="benefit-description">Acesso a rede exclusiva de líderes e oportunidades de parcerias estratégicas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mutual ROI -->
+    <section class="section" id="roi">
+        <div class="container">
+            <h2 class="section-title">💎 Retorno Financeiro Mútuo</h2>
+            <p class="section-subtitle">Análise comparativa do investimento e retorno esperado</p>
+            
+            <div class="roi-comparison">
+                <div class="roi-grid">
+                    <div class="roi-metric">
+                        <div class="roi-value">R$ 25.799</div>
+                        <div class="roi-label">Investimento Total</div>
+                        <p class="roi-description">Valor do programa completo de 6 meses</p>
+                    </div>
+                    
+                    <div class="roi-metric">
+                        <div class="roi-value">R$ 77.397</div>
+                        <div class="roi-label">Retorno Mínimo</div>
+                        <p class="roi-description">ROI conservador de 300% em 12 meses</p>
+                    </div>
+                    
+                    <div class="roi-metric">
+                        <div class="roi-value">R$ 154.794</div>
+                        <div class="roi-label">Potencial Máximo</div>
+                        <p class="roi-description">ROI otimista de 600% com implementação completa</p>
+                    </div>
+                    
+                    <div class="roi-metric">
+                        <div class="roi-value">6-12</div>
+                        <div class="roi-label">Meses para ROI</div>
+                        <p class="roi-description">Tempo médio para recuperar o investimento</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <div class="logo-icon">S</div>
+                        SDZ Premium
+                    </div>
+                    <p style="color: #888; margin-top: 16px;">Capacitando criadores e empreendedores a monetizar seus talentos e escalar seus negócios com nossa plataforma abrangente.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Produto</h3>
+                    <ul>
+                        <li><a href="#">Recursos</a></li>
+                        <li><a href="#">Preços</a></li>
+                        <li><a href="#">Cursos</a></li>
+                        <li><a href="#">Mentoria</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Empresa</h3>
+                    <ul>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Comunidade</a></li>
+                        <li><a href="#">Documentação API</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 SDZ Premium. Todos os direitos reservados.</p>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">TW</a>
+                    <a href="#">IG</a>
+                    <a href="#">LI</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
