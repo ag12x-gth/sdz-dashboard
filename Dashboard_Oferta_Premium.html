@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 OFERTA PREMIUM PERSONALIZADA - R$ 25.799</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #000 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Header Premium */
+        .premium-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            border-radius: 24px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .premium-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .premium-subtitle {
+            font-size: 24px;
+            font-weight: 600;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        /* Premium Cards */
+        .premium-card {
+            background: white;
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b9d, #c44569, #ff6b9d);
+        }
+
+        .premium-card.elite {
+            border-color: #ff6b9d;
+            background: linear-gradient(135deg, #fff 0%, #fff5f8 100%);
+        }
+
+        .premium-card.premium {
+            border-color: #ffa726;
+            background: linear-gradient(135deg, #fff 0%, #fffaf0 100%);
+        }
+
+        .premium-card.potencial {
+            border-color: #00d4aa;
+            background: linear-gradient(135deg, #fff 0%, #f0fffc 100%);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .tier-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .tier-badge.elite {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: white;
+        }
+
+        .tier-badge.premium {
+            background: linear-gradient(135deg, #ffa726, #ff9800);
+            color: white;
+        }
+
+        .tier-badge.potencial {
+            background: linear-gradient(135deg, #00d4aa, #00b894);
+            color: white;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-change {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 12px;
+            margin-top: 12px;
+            display: inline-block;
+        }
+
+        .metric-change.positive {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            color: #2e7d32;
+        }
+
+        /* Participants Section */
+        .participants-section {
+            grid-column: 1 / -1;
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .participants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .participant-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 24px;
+            border-radius: 20px;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .participant-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .participant-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .participant-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .participant-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .participant-company {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .participant-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .participant-metric {
+            text-align: center;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+        }
+
+        .participant-metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .participant-metric-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Investment Section */
+        .investment-section {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 24px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .investment-title {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .investment-value {
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b9d, #ffa726);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .investment-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .investment-detail {
+            text-align: center;
+        }
+
+        .investment-detail-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .investment-detail-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Chart Section */
+        .chart-section {
+            grid-column: 1 / -1;
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-container {
+            height: 400px;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .premium-title {
+                font-size: 32px;
+            }
+            
+            .investment-value {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Premium Header -->
+        <header class="premium-header">
+            <h1 class="premium-title">🚀 OFERTA PREMIUM PERSONALIZADA</h1>
+            <p class="premium-subtitle">Programa Exclusivo de Mentoria Executiva</p>
+            <div class="premium-badge">
+                💎 ULTRA EXCLUSIVO
+                ⚡ TRANSFORMAÇÃO GARANTIDA
+                🎯 RESULTADOS COMPROVADOS
+            </div>
+        </header>
+
+        <!-- Main Metrics Grid -->
+        <div class="main-grid">
+            <!-- Total Participants -->
+            <div class="premium-card elite">
+                <div class="card-header">
+                    <h3 class="card-title">Participantes Selecionados</h3>
+                    <div class="tier-badge elite">ELITE</div>
+                </div>
+                <div class="metric-value">8</div>
+                <div class="metric-label">Participantes Viáveis</div>
+                <div class="metric-change positive">100% Qualificados</div>
+            </div>
+
+            <!-- Investment Value -->
+            <div class="premium-card premium">
+                <div class="card-header">
+                    <h3 class="card-title">Investimento Total</h3>
+                    <div class="tier-badge premium">PREMIUM</div>
+                </div>
+                <div class="metric-value">R$ 206k</div>
+                <div class="metric-label">Potencial de Receita</div>
+                <div class="metric-change positive">8 × R$ 25.799</div>
+            </div>
+
+            <!-- ROI Projection -->
+            <div class="premium-card potencial">
+                <div class="card-header">
+                    <h3 class="card-title">ROI Médio Projetado</h3>
+                    <div class="tier-badge potencial">POTENCIAL</div>
+                </div>
+                <div class="metric-value">2.847%</div>
+                <div class="metric-label">Retorno Esperado</div>
+                <div class="metric-change positive">6 meses</div>
+            </div>
+
+            <!-- Payback -->
+            <div class="premium-card elite">
+                <div class="card-header">
+                    <h3 class="card-title">Payback Médio</h3>
+                    <div class="tier-badge elite">RÁPIDO</div>
+                </div>
+                <div class="metric-value">1,2</div>
+                <div class="metric-label">Meses para Retorno</div>
+                <div class="metric-change positive">Ultra Rápido</div>
+            </div>
+        </div>
+
+        <!-- Investment Showcase -->
+        <div class="investment-section">
+            <h2 class="investment-title">INVESTIMENTO PREMIUM</h2>
+            <div class="investment-value">R$ 25.799</div>
+            <p style="font-size: 18px; opacity: 0.9; margin-bottom: 20px;">Programa Completo de Transformação Executiva</p>
+            
+            <div class="investment-details">
+                <div class="investment-detail">
+                    <div class="investment-detail-value">R$ 5.159</div>
+                    <div class="investment-detail-label">Entrada (20%)</div>
+                </div>
+                <div class="investment-detail">
+                    <div class="investment-detail-value">5x R$ 4.128</div>
+                    <div class="investment-detail-label">Parcelas Mensais</div>
+                </div>
+                <div class="investment-detail">
+                    <div class="investment-detail-value">6 Meses</div>
+                    <div class="investment-detail-label">Duração do Programa</div>
+                </div>
+                <div class="investment-detail">
+                    <div class="investment-detail-value">24/7</div>
+                    <div class="investment-detail-label">Suporte Exclusivo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Participants Section -->
+        <div class="participants-section">
+            <h2 class="section-title">👥 PARTICIPANTES SELECIONADOS PARA A OFERTA PREMIUM</h2>
+            
+            <div class="participants-grid">
+                <!-- Amauri Cavalheiro -->
+                <div class="participant-card">
+                    <div class="participant-header">
+                        <div class="participant-avatar" style="background: linear-gradient(135deg, #ff6b9d, #c44569);">👨‍💼</div>
+                        <div class="participant-info">
+                            <h3>Amauri Cavalheiro</h3>
+                            <div class="participant-company">Biolab Saúde Animal</div>
+                        </div>
+                    </div>
+                    <div class="participant-metrics">
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">R$ 50.000</div>
+                            <div class="participant-metric-label">ROI Mensal</div>
+                        </div>
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">0,5 meses</div>
+                            <div class="participant-metric-label">Payback</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regiane Zachi -->
+                <div class="participant-card">
+                    <div class="participant-header">
+                        <div class="participant-avatar" style="background: linear-gradient(135deg, #ffa726, #ff9800);">👩‍💼</div>
+                        <div class="participant-info">
+                            <h3>Regiane Zachi de Lima</h3>
+                            <div class="participant-company">Biolab Saúde Animal</div>
+                        </div>
+                    </div>
+                    <div class="participant-metrics">
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">R$ 40.000</div>
+                            <div class="participant-metric-label">ROI Mensal</div>
+                        </div>
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">0,6 meses</div>
+                            <div class="participant-metric-label">Payback</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gabriela Andrade -->
+                <div class="participant-card">
+                    <div class="participant-header">
+                        <div class="participant-avatar" style="background: linear-gradient(135deg, #00d4aa, #00b894);">👩‍💼</div>
+                        <div class="participant-info">
+                            <h3>Gabriela Andrade Almeida</h3>
+                            <div class="participant-company">Avert-Biolab</div>
+                        </div>
+                    </div>
+                    <div class="participant-metrics">
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">R$ 35.000</div>
+                            <div class="participant-metric-label">ROI Mensal</div>
+                        </div>
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">0,7 meses</div>
+                            <div class="participant-metric-label">Payback</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mario Segadilha -->
+                <div class="participant-card">
+                    <div class="participant-header">
+                        <div class="participant-avatar" style="background: linear-gradient(135deg, #9c27b0, #ba68c8);">👨‍💼</div>
+                        <div class="participant-info">
+                            <h3>Mario Segadilha</h3>
+                            <div class="participant-company">Biolab Saúde Animal</div>
+                        </div>
+                    </div>
+                    <div class="participant-metrics">
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">R$ 30.000</div>
+                            <div class="participant-metric-label">ROI Mensal</div>
+                        </div>
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">0,9 meses</div>
+                            <div class="participant-metric-label">Payback</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monise Nave -->
+                <div class="participant-card">
+                    <div class="participant-header">
+                        <div class="participant-avatar" style="background: linear-gradient(135deg, #e91e63, #f06292);">👩‍💼</div>
+                        <div class="participant-info">
+                            <h3>Monise Nave</h3>
+                            <div class="participant-company">Biolab Saúde Animal</div>
+                        </div>
+                    </div>
+                    <div class="participant-metrics">
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">R$ 25.000</div>
+                            <div class="participant-metric-label">ROI Mensal</div>
+                        </div>
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">1,0 meses</div>
+                            <div class="participant-metric-label">Payback</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hamilton Marques -->
+                <div class="participant-card">
+                    <div class="participant-header">
+                        <div class="participant-avatar" style="background: linear-gradient(135deg, #4285f4, #5a9cff);">👨‍💼</div>
+                        <div class="participant-info">
+                            <h3>Hamilton Marques</h3>
+                            <div class="participant-company">Biolab Saúde Animal</div>
+                        </div>
+                    </div>
+                    <div class="participant-metrics">
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">R$ 22.000</div>
+                            <div class="participant-metric-label">ROI Mensal</div>
+                        </div>
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">1,2 meses</div>
+                            <div class="participant-metric-label">Payback</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maria Eduarda -->
+                <div class="participant-card">
+                    <div class="participant-header">
+                        <div class="participant-avatar" style="background: linear-gradient(135deg, #ff5722, #ff8a65);">👩‍💼</div>
+                        <div class="participant-info">
+                            <h3>Maria Eduarda M. Temporal</h3>
+                            <div class="participant-company">Biolab Saúde Animal</div>
+                        </div>
+                    </div>
+                    <div class="participant-metrics">
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">R$ 20.000</div>
+                            <div class="participant-metric-label">ROI Mensal</div>
+                        </div>
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">1,3 meses</div>
+                            <div class="participant-metric-label">Payback</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Priscila Silva -->
+                <div class="participant-card">
+                    <div class="participant-header">
+                        <div class="participant-avatar" style="background: linear-gradient(135deg, #795548, #a1887f);">👩‍💼</div>
+                        <div class="participant-info">
+                            <h3>Priscila Silva Barros</h3>
+                            <div class="participant-company">Biolab Saúde Animal</div>
+                        </div>
+                    </div>
+                    <div class="participant-metrics">
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">R$ 18.000</div>
+                            <div class="participant-metric-label">ROI Mensal</div>
+                        </div>
+                        <div class="participant-metric">
+                            <div class="participant-metric-value">1,4 meses</div>
+                            <div class="participant-metric-label">Payback</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROI Chart Section -->
+        <div class="chart-section">
+            <h2 class="section-title">📈 PROJEÇÃO DE ROI POR PARTICIPANTE</h2>
+            <div class="chart-container">
+                <canvas id="roiChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ROI Chart Configuration
+        const roiCtx = document.getElementById('roiChart').getContext('2d');
+        new Chart(roiCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Amauri Cavalheiro',
+                    'Regiane Zachi',
+                    'Gabriela Andrade',
+                    'Mario Segadilha',
+                    'Monise Nave',
+                    'Hamilton Marques',
+                    'Maria Eduarda',
+                    'Priscila Silva'
+                ],
+                datasets: [{
+                    label: 'ROI Mensal (R$)',
+                    data: [50000, 40000, 35000, 30000, 25000, 22000, 20000, 18000],
+                    backgroundColor: [
+                        'rgba(255, 107, 157, 0.8)',
+                        'rgba(255, 167, 38, 0.8)',
+                        'rgba(0, 212, 170, 0.8)',
+                        'rgba(156, 39, 176, 0.8)',
+                        'rgba(233, 30, 99, 0.8)',
+                        'rgba(66, 133, 244, 0.8)',
+                        'rgba(255, 87, 34, 0.8)',
+                        'rgba(121, 85, 72, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 107, 157, 1)',
+                        'rgba(255, 167, 38, 1)',
+                        'rgba(0, 212, 170, 1)',
+                        'rgba(156, 39, 176, 1)',
+                        'rgba(233, 30, 99, 1)',
+                        'rgba(66, 133, 244, 1)',
+                        'rgba(255, 87, 34, 1)',
+                        'rgba(121, 85, 72, 1)'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'ROI Mensal: R$ ' + context.parsed.y.toLocaleString('pt-BR');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'R$ ' + value.toLocaleString('pt-BR');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

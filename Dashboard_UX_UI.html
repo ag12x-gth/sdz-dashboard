@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard UX/UI - Global Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: #000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 300px;
+            margin: 0 40px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            background: #000;
+            color: white;
+        }
+
+        .nav-tab:not(.active) {
+            background: transparent;
+            color: #666;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        /* Left Column */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .automation-section {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        .automation-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .automation-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        .automation-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Metrics Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .metric-change {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 8px;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        .metric-change.positive {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .metric-change.negative {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        /* Middle Column - Chart */
+        .chart-section {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .chart-badge {
+            background: #000;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            height: 200px;
+            margin-bottom: 24px;
+        }
+
+        .companies-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .company-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .company-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .company-date {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .company-location {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Right Column */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .purchase-section {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        .purchase-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 24px;
+        }
+
+        .purchase-values {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .purchase-value {
+            text-align: center;
+        }
+
+        .purchase-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .purchase-month {
+            color: #666;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .purchase-chart {
+            display: flex;
+            align-items: end;
+            gap: 8px;
+            height: 60px;
+            margin-bottom: 24px;
+        }
+
+        .purchase-bar {
+            flex: 1;
+            border-radius: 4px;
+        }
+
+        .map-section {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        .map-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .map-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .map-container {
+            height: 200px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-indicator {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00d4aa;
+        }
+
+        .account-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .account-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .account-percentage {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-bar {
+                margin: 0;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">⚡</div>
+            
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search...">
+            </div>
+            
+            <nav class="nav-tabs">
+                <div class="nav-tab active">📊 Dashboard</div>
+                <div class="nav-tab">🛒 Sell Parts</div>
+                <div class="nav-tab">🤖 Autopilot</div>
+                <div class="nav-tab">📈 AI Insights</div>
+            </nav>
+            
+            <div class="user-profile">
+                <div class="user-avatar"></div>
+                <span class="user-name">Anna Smith</span>
+            </div>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Automation Section -->
+                <div class="automation-section">
+                    <h2 class="automation-title">📊 Análise Completa - Programa de Mentoria 6 Meses</h2>
+                    <p class="automation-subtitle">Liderança e Vendas</p>
+                    <div class="automation-badge">
+                        🎯 Desenvolvimento Profissional
+                        🔄 Transformação
+                    </div>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" style="color: #00d4aa;">28</div>
+                        <div class="metric-label">Participantes</div>
+                        <div class="metric-change positive">100%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" style="color: #00d4aa;">R$ 166k</div>
+                        <div class="metric-label">Investimento Total</div>
+                        <div class="metric-change positive">Total</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" style="color: #00d4aa;">4.700%</div>
+                        <div class="metric-label">ROI Projetado</div>
+                        <div class="metric-change positive">6 meses</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" style="color: #00d4aa;">0,5</div>
+                        <div class="metric-label">Payback (meses)</div>
+                        <div class="metric-change positive">meses</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Column - Chart -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <h3 class="chart-title">Gaps Identificados</h3>
+                    <div class="chart-badge">82,1%</div>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="quotesChart"></canvas>
+                </div>
+
+                <!-- Priority Participants -->
+                <div class="companies-list">
+                    <div class="company-item">
+                        <div class="company-info">
+                            <div class="company-logo" style="background: #ff6b9d;">👩‍💼</div>
+                            <div>
+                                <div class="company-name">Gabriela Andrade Almeida</div>
+                                <div class="company-date">Avert-Biolab</div>
+                            </div>
+                        </div>
+                        <div class="company-location">R$ 10.000</div>
+                    </div>
+                    
+                    <div class="company-item">
+                        <div class="company-info">
+                            <div class="company-logo" style="background: #00d4aa;">👩‍💼</div>
+                            <div>
+                                <div class="company-name">Ana Flávia dos Santos</div>
+                                <div class="company-date">Biolab</div>
+                            </div>
+                        </div>
+                        <div class="company-location">R$ 10.000</div>
+                    </div>
+                    
+                    <div class="company-item">
+                        <div class="company-info">
+                            <div class="company-logo" style="background: #4285f4;">👩‍💼</div>
+                            <div>
+                                <div class="company-name">Priscila Silva Barros</div>
+                                <div class="company-date">Biolab Saúde Animal</div>
+                            </div>
+                        </div>
+                        <div class="company-location">R$ 5.000</div>
+                    </div>
+                    
+                    <div class="company-item">
+                        <div class="company-info">
+                            <div class="company-logo" style="background: #ff9800;">👨‍💼</div>
+                            <div>
+                                <div class="company-name">Alexssandre de Oliveira</div>
+                                <div class="company-date">Botupharma</div>
+                            </div>
+                        </div>
+                        <div class="company-location">R$ 5.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- ROI Section -->
+                <div class="purchase-section">
+                    <h3 class="purchase-title">Retorno Estimado</h3>
+                    
+                    <div class="purchase-values">
+                        <div class="purchase-value">
+                            <div class="purchase-amount">R$ 7,8M</div>
+                            <div class="purchase-month">ROI Total</div>
+                        </div>
+                        <div class="purchase-value">
+                            <div class="purchase-amount">R$ 166k</div>
+                            <div class="purchase-month">Investimento</div>
+                        </div>
+                        <div class="purchase-value">
+                            <div class="purchase-amount">4.700%</div>
+                            <div class="purchase-month">Retorno</div>
+                        </div>
+                    </div>
+                    
+                    <div class="purchase-chart">
+                        <div class="purchase-bar" style="background: #00d4aa; height: 100%;"></div>
+                        <div class="purchase-bar" style="background: #ff6b9d; height: 60%;"></div>
+                    </div>
+                </div>
+
+                <!-- Urgency Distribution Section -->
+                <div class="map-section">
+                    <h3 class="map-title">Distribuição por Urgência</h3>
+                    <p class="map-subtitle">Análise de prioridades dos participantes</p>
+                    
+                    <div class="map-container">
+                        <div style="padding: 20px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                                <div style="width: 12px; height: 12px; background: #ff6b9d; border-radius: 50%; margin-right: 8px;"></div>
+                                <span style="font-size: 14px; color: #333;">Alta: 32,1% (9 participantes)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                                <div style="width: 12px; height: 12px; background: #ffa726; border-radius: 50%; margin-right: 8px;"></div>
+                                <span style="font-size: 14px; color: #333;">Média: 46,4% (13 participantes)</span>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 12px; height: 12px; background: #00d4aa; border-radius: 50%; margin-right: 8px;"></div>
+                                <span style="font-size: 14px; color: #333;">Baixa: 21,4% (6 participantes)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="account-summary">
+                        <span class="account-text">Cobertura completa dos participantes identificados</span>
+                        <span class="account-percentage">100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+         <!-- Timeline Section -->
+         <div class="timeline-section" style="grid-column: 1 / -1; margin-top: 30px; background: white; border-radius: 20px; padding: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+             <h3 style="color: #333; margin-bottom: 25px; font-size: 20px; font-weight: 600;">📅 Cronograma de 6 Meses - Programa de Mentoria</h3>
+             <div class="timeline-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                 <div class="timeline-card" style="background: linear-gradient(135deg, #ff6b9d 0%, #ff8a9b 100%); color: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(255,107,157,0.3);">
+                     <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Mês 1</div>
+                     <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">Diagnóstico e Planejamento</div>
+                     <div style="font-size: 13px; line-height: 1.4; opacity: 0.8;">Sessões de diagnóstico individual, workshop de fundamentos de liderança e definição de metas.</div>
+                 </div>
+                 <div class="timeline-card" style="background: linear-gradient(135deg, #00d4aa 0%, #26e7a6 100%); color: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,212,170,0.3);">
+                     <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Mês 2</div>
+                     <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">Gestão por Indicadores</div>
+                     <div style="font-size: 13px; line-height: 1.4; opacity: 0.8;">Implementação de KPIs, workshop de gestão por resultados e mentoria em grupo.</div>
+                 </div>
+                 <div class="timeline-card" style="background: linear-gradient(135deg, #4285f4 0%, #5a9cff 100%); color: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(66,133,244,0.3);">
+                     <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Mês 3</div>
+                     <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">Coaching e Desenvolvimento</div>
+                     <div style="font-size: 13px; line-height: 1.4; opacity: 0.8;">Técnicas de coaching, workshop de feedback efetivo e implementação de 1:1s.</div>
+                 </div>
+                 <div class="timeline-card" style="background: linear-gradient(135deg, #ffa726 0%, #ffb74d 100%); color: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(255,167,38,0.3);">
+                     <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Mês 4</div>
+                     <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">Performance e Produtividade</div>
+                     <div style="font-size: 13px; line-height: 1.4; opacity: 0.8;">Gestão de performance, técnicas de vendas avançadas e otimização de processos.</div>
+                 </div>
+                 <div class="timeline-card" style="background: linear-gradient(135deg, #9c27b0 0%, #ba68c8 100%); color: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(156,39,176,0.3);">
+                     <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Mês 5</div>
+                     <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">Implementação e Refinamento</div>
+                     <div style="font-size: 13px; line-height: 1.4; opacity: 0.8;">Resolução de desafios específicos, liderança situacional e boas práticas.</div>
+                 </div>
+                 <div class="timeline-card" style="background: linear-gradient(135deg, #e91e63 0%, #f06292 100%); color: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(233,30,99,0.3);">
+                     <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Mês 6</div>
+                     <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">Consolidação e Futuro</div>
+                     <div style="font-size: 13px; line-height: 1.4; opacity: 0.8;">Avaliação final, sustentabilidade dos resultados e certificação.</div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <script>
+        // Gaps Chart Configuration
+        const gapsCtx = document.getElementById('quotesChart').getContext('2d');
+        new Chart(gapsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Coaching', 'Gestão por Indicadores', 'Organização', 'Prospecção', 'Pós-vendas'],
+                datasets: [{
+                    label: 'Percentual de Participantes',
+                    data: [82.1, 78.6, 42.9, 35.7, 35.7],
+                    backgroundColor: [
+                        '#ff6b9d',
+                        '#00d4aa',
+                        '#4285f4',
+                        '#ffa726',
+                        '#9c27b0'
+                    ],
+                    borderRadius: 8,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        display: false
+                    },
+                    y: {
+                        display: false,
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

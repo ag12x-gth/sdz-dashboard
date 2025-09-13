@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDZ Premium - Programa Mentoria 6 Meses Detalhada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: #0a0a0a;
+            padding: 20px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #ffffff;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-login {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(158, 240, 26, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #ccc;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: #111;
+            padding: 60px 0;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .stats-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .stats-subtitle {
+            text-align: center;
+            color: #ccc;
+            margin-bottom: 50px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #9ef01a;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        /* Investment Section */
+        .investment-section {
+            background: #0a0a0a;
+            padding: 80px 0;
+        }
+
+        .investment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .investment-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .investment-subtitle {
+            color: #ccc;
+            margin-bottom: 50px;
+        }
+
+        .price-card {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border: 2px solid #9ef01a;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .plan-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #9ef01a;
+            margin-bottom: 10px;
+        }
+
+        .plan-description {
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .payment-details {
+            background: #111;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .payment-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .company-help {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .company-help h4 {
+            color: #9ef01a;
+            margin-bottom: 15px;
+        }
+
+        .company-help ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .company-help li {
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            color: #ccc;
+        }
+
+        .plan-button {
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            color: #000;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .plan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(158, 240, 26, 0.3);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            background: #111;
+            padding: 80px 0;
+        }
+
+        .benefits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .benefits-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .benefits-subtitle {
+            text-align: center;
+            color: #ccc;
+            margin-bottom: 50px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            border-color: #9ef01a;
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #9ef01a, #70e000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card p {
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .benefit-metric {
+            color: #9ef01a;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        /* Employee Benefits */
+        .employee-benefits-section {
+            background: #0a0a0a;
+            padding: 80px 0;
+        }
+
+        .benefit-card.employee {
+            border-color: #4285f4;
+        }
+
+        .benefit-card.employee:hover {
+            border-color: #4285f4;
+        }
+
+        .benefit-card.employee .benefit-icon {
+            background: linear-gradient(135deg, #4285f4, #1976d2);
+        }
+
+        .benefit-card.employee .benefit-metric {
+            color: #4285f4;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            padding: 60px 0 30px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .footer-text {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #9ef01a;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #1a1a1a;
+            padding-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .investment-container {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">S</div>
+                <span>SDZ Premium</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#" class="active">Programa</a></li>
+                    <li><a href="#">Resultados</a></li>
+                    <li><a href="#">Investimento</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <a href="#" class="btn-login">Login</a>
+                <a href="#" class="btn-primary">Inscrever-se</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1 class="hero-title">MENTORIA 6 MESES<br>DETALHADA</h1>
+            <p class="hero-subtitle">
+                Em 6 meses, você sairá do nível atual da operacional, personalizado para o seu contexto para ser referencia do seu ambiente e impulsionar ação de todos como:<br><br>
+                <strong>[LEG] Líder Estratégico Gestão de Performance</strong> capaz de multiplicar resultados, influenciar equipes de alta performance e gerar ROI exponencial para sua carreira e empresa.
+            </p>
+            <p style="color: #ccc; margin-top: 30px;">
+                Desenvolva sua liderança com nosso programa completo de 6 meses. Três modalidades de mentoria com 28 participantes ativos, ROI médio de 278.928% e payback de apenas 0,5 meses.
+            </p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <h2 class="stats-title">Resultados Comprovados</h2>
+            <p class="stats-subtitle">
+                Nosso programa de mentoria de 6 meses já transformou a carreira de dezenas de profissionais, gerando resultados excepcionais em ROI e desenvolvimento de liderança.
+            </p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">28</div>
+                    <div class="stat-label">Participantes Qualificados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">278.928%</div>
+                    <div class="stat-label">ROI Médio Projetado</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0.5</div>
+                    <div class="stat-label">Meses para Payback</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">R$ 7.8M</div>
+                    <div class="stat-label">Potencial de Receita</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Section -->
+    <section class="investment-section">
+        <div class="investment-container">
+            <h2 class="investment-title">Modalidade de Investimento</h2>
+            <p class="investment-subtitle">
+                Programa completo de mentoria de 6 meses com transformação garantida em liderança estratégica
+            </p>
+            
+            <div class="price-card">
+                <div class="plan-name">MENTORIA COMPLETA 6 MESES</div>
+                <div class="plan-description">
+                    Programa integral de transformação em liderança estratégica com resultados comprovados
+                </div>
+                <div class="price">R$ 25.799</div>
+                
+                <div class="payment-details">
+                    <div class="payment-line">
+                        <span>Entrada:</span>
+                        <span><strong>R$ 2.699</strong></span>
+                    </div>
+                    <div class="payment-line">
+                        <span>+12x de:</span>
+                        <span><strong>R$ 1.925</strong></span>
+                    </div>
+                </div>
+                
+                <div class="company-help">
+                    <h4>💼 Como sua empresa pode ajudar:</h4>
+                    <ul>
+                        <li>🎯 <strong>Patrocínio Integral:</strong> Empresa custeia 100% como investimento em desenvolvimento</li>
+                        <li>💰 <strong>Compartilhamento 50/50:</strong> Empresa paga entrada + 6 parcelas, funcionário paga 6 parcelas</li>
+                        <li>📈 <strong>Reembolso por Performance:</strong> Empresa reembolsa conforme metas atingidas</li>
+                        <li>🏆 <strong>Benefício Corporativo:</strong> Incluso no pacote de benefícios como plano de carreira</li>
+                        <li>⚡ <strong>Desconto Corporativo:</strong> 15% de desconto para grupos de 3+ funcionários</li>
+                    </ul>
+                </div>
+                
+                <ul class="plan-features">
+                    <li>20 Sessões Individuais</li>
+                    <li>24 Sessões em Grupo</li>
+                    <li>Coaching Executivo Personalizado</li>
+                    <li>Análise 360° Completa</li>
+                    <li>Plano de Desenvolvimento Individual</li>
+                    <li>Dashboard de KPIs Avançado</li>
+                    <li>Networking Executivo Exclusivo</li>
+                    <li>Certificação Premium</li>
+                    <li>Suporte 24/7 por 6 meses</li>
+                    <li>Garantia de Resultados</li>
+                </ul>
+                
+                <button class="plan-button">Garantir Minha Vaga</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Benefits Section -->
+    <section class="benefits-section">
+        <div class="benefits-container">
+            <h2 class="benefits-title">Resultados Práticos para sua Empresa</h2>
+            <p class="benefits-subtitle">Transformação real que impacta diretamente o bottom line</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Aumento de Produtividade</h3>
+                    <p>Equipes 40% mais eficientes com processos otimizados e gestão por indicadores implementada</p>
+                    <div class="benefit-metric">+40% produtividade média</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Redução de Custos Operacionais</h3>
+                    <p>Eliminação de retrabalhos, otimização de recursos e melhoria na tomada de decisões estratégicas</p>
+                    <div class="benefit-metric">-25% custos operacionais</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Retenção de Talentos</h3>
+                    <p>Líderes desenvolvidos internamente, reduzindo turnover e custos de recrutamento</p>
+                    <div class="benefit-metric">-60% turnover liderança</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Crescimento Sustentável</h3>
+                    <p>Estrutura organizacional preparada para expansão com líderes capacitados em todos os níveis</p>
+                    <div class="benefit-metric">+180% capacidade expansão</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Employee Benefits Section -->
+    <section class="employee-benefits-section">
+        <div class="benefits-container">
+            <h2 class="benefits-title">Benefícios Práticos para os Participantes</h2>
+            <p class="benefits-subtitle">Desenvolvimento que transforma carreiras e vidas</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card employee">
+                    <div class="benefit-icon">💼</div>
+                    <h3>Promoções e Reconhecimento</h3>
+                    <p>Competências desenvolvidas que aceleram crescimento na carreira e aumentam valor no mercado</p>
+                    <div class="benefit-metric">+85% promovidos em 12 meses</div>
+                </div>
+                
+                <div class="benefit-card employee">
+                    <div class="benefit-icon">💵</div>
+                    <h3>Aumento Salarial</h3>
+                    <p>Habilidades de liderança e gestão que justificam reajustes e bonificações por performance</p>
+                    <div class="benefit-metric">+32% aumento salarial médio</div>
+                </div>
+                
+                <div class="benefit-card employee">
+                    <div class="benefit-icon">🧠</div>
+                    <h3>Confiança e Autonomia</h3>
+                    <p>Desenvolvimento de soft skills que aumentam autoestima e capacidade de tomada de decisão</p>
+                    <div class="benefit-metric">+95% confiança relatada</div>
+                </div>
+                
+                <div class="benefit-card employee">
+                    <div class="benefit-icon">🌟</div>
+                    <h3>Network e Oportunidades</h3>
+                    <p>Conexões estratégicas e visibilidade que abrem portas para novas oportunidades profissionais</p>
+                    <div class="benefit-metric">+150% network expandido</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">S</div>
+                <span>SDZ Premium</span>
+            </div>
+            <p class="footer-text">
+                Programa Empresarial - Mentoria e Metas
+            </p>
+            <div class="footer-links">
+                <a href="#">Termos de Uso</a>
+                <a href="#">Política de Privacidade</a>
+                <a href="#">Contato</a>
+                <a href="#">Suporte</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SDZ Premium. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
