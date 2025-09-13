@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard UX/UI - Global Automation | Mentoria Premium</title>
+    <meta name="description" content="Dashboard interativo de análise UX/UI para programa de mentoria premium em liderança e vendas">
+    <meta name="keywords" content="dashboard, UX/UI, mentoria, liderança, vendas, análise, métricas">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: #000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .header-info h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .header-info p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #00d4aa;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #00b894;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #e9ecef;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr 350px;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        /* Left Column - Metrics */
+        .metrics-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .metric-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .metric-change {
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .metric-change.positive {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .metric-change.negative {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        /* Middle Column - Chart */
+        .chart-section {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .chart-badge {
+            background: #000;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            height: 200px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .companies-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .company-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: background 0.3s ease;
+        }
+
+        .company-item:hover {
+            background: #e9ecef;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .company-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .company-date {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .company-location {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Right Column */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .purchase-section, .map-section {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 24px;
+        }
+
+        .purchase-values {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .purchase-value {
+            text-align: center;
+        }
+
+        .purchase-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .purchase-month {
+            color: #666;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .purchase-chart {
+            display: flex;
+            align-items: end;
+            gap: 8px;
+            height: 60px;
+            margin-bottom: 24px;
+        }
+
+        .purchase-bar {
+            flex: 1;
+            border-radius: 4px;
+            transition: opacity 0.3s ease;
+        }
+
+        .purchase-bar:hover {
+            opacity: 0.8;
+        }
+
+        .map-container {
+            height: 200px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .account-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .account-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .account-percentage {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            grid-column: 1 / -1;
+            margin-top: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .timeline-card {
+            padding: 20px;
+            border-radius: 16px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .timeline-month {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .timeline-description {
+            font-size: 13px;
+            line-height: 1.4;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .dashboard-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .timeline-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .purchase-values {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+
+        /* Chart Styles */
+        .chart-bars {
+            display: flex;
+            align-items: end;
+            gap: 12px;
+            height: 200px;
+            padding: 20px 0;
+        }
+
+        .chart-bar {
+            flex: 1;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            width: 80px;
+        }
+
+        .chart-bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <div class="logo">GA</div>
+                <div class="header-info">
+                    <h1>Dashboard UX/UI - Global Automation</h1>
+                    <p>Análise de Performance e Métricas de Mentoria</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="#" class="btn btn-secondary">📊 Relatórios</a>
+                <a href="#" class="btn btn-primary">🚀 Acessar Mentoria</a>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Left Column - Metrics -->
+            <div class="metrics-section">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon" style="background: #ff6b9d;">👥</div>
+                    </div>
+                    <div class="metric-value">28</div>
+                    <div class="metric-label">Participantes Ativos</div>
+                    <div class="metric-change positive">↗ +12% vs mês anterior</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon" style="background: #00d4aa;">📈</div>
+                    </div>
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">Taxa de Sucesso</div>
+                    <div class="metric-change positive">↗ +5% vs período anterior</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon" style="background: #4285f4;">⏱️</div>
+                    </div>
+                    <div class="metric-value">24</div>
+                    <div class="metric-label">Sessões Realizadas</div>
+                    <div class="metric-change positive">↗ 100% do planejado</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon" style="background: #ffa726;">💰</div>
+                    </div>
+                    <div class="metric-value">300%</div>
+                    <div class="metric-label">ROI Médio</div>
+                    <div class="metric-change positive">↗ Acima da meta</div>
+                </div>
+            </div>
+
+            <!-- Middle Column - Chart -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <div class="chart-title">📊 Principais Gaps Identificados</div>
+                    <div class="chart-badge">Análise Completa</div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-bars">
+                        <div class="chart-bar" style="background: #ff6b9d; height: 82%;">
+                            <div class="chart-bar-value">82.1%</div>
+                            <div class="chart-bar-label">Coaching</div>
+                        </div>
+                        <div class="chart-bar" style="background: #00d4aa; height: 78%;">
+                            <div class="chart-bar-value">78.6%</div>
+                            <div class="chart-bar-label">Gestão por Indicadores</div>
+                        </div>
+                        <div class="chart-bar" style="background: #4285f4; height: 43%;">
+                            <div class="chart-bar-value">42.9%</div>
+                            <div class="chart-bar-label">Organização</div>
+                        </div>
+                        <div class="chart-bar" style="background: #ffa726; height: 36%;">
+                            <div class="chart-bar-value">35.7%</div>
+                            <div class="chart-bar-label">Prospecção</div>
+                        </div>
+                        <div class="chart-bar" style="background: #9c27b0; height: 36%;">
+                            <div class="chart-bar-value">35.7%</div>
+                            <div class="chart-bar-label">Pós-vendas</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="companies-list">
+                    <div class="company-item">
+                        <div class="company-info">
+                            <div class="company-logo" style="background: #ff6b9d;">TC</div>
+                            <div>
+                                <div class="company-name">TechCorp Solutions</div>
+                                <div class="company-date">Iniciado em Jan 2024</div>
+                            </div>
+                        </div>
+                        <div class="company-location">São Paulo, SP</div>
+                    </div>
+                    <div class="company-item">
+                        <div class="company-info">
+                            <div class="company-logo" style="background: #00d4aa;">IS</div>
+                            <div>
+                                <div class="company-name">Inovação & Sistemas</div>
+                                <div class="company-date">Iniciado em Fev 2024</div>
+                            </div>
+                        </div>
+                        <div class="company-location">Rio de Janeiro, RJ</div>
+                    </div>
+                    <div class="company-item">
+                        <div class="company-info">
+                            <div class="company-logo" style="background: #4285f4;">DM</div>
+                            <div>
+                                <div class="company-name">Digital Marketing Pro</div>
+                                <div class="company-date">Iniciado em Mar 2024</div>
+                            </div>
+                        </div>
+                        <div class="company-location">Belo Horizonte, MG</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <div class="purchase-section">
+                    <div class="section-title">💳 Investimento Mensal</div>
+                    <div class="purchase-values">
+                        <div class="purchase-value">
+                            <div class="purchase-amount">R$ 4.299</div>
+                            <div class="purchase-month">Janeiro</div>
+                        </div>
+                        <div class="purchase-value">
+                            <div class="purchase-amount">R$ 4.299</div>
+                            <div class="purchase-month">Fevereiro</div>
+                        </div>
+                        <div class="purchase-value">
+                            <div class="purchase-amount">R$ 4.299</div>
+                            <div class="purchase-month">Março</div>
+                        </div>
+                    </div>
+                    <div class="purchase-chart">
+                        <div class="purchase-bar" style="background: #ff6b9d; height: 100%;"></div>
+                        <div class="purchase-bar" style="background: #00d4aa; height: 100%;"></div>
+                        <div class="purchase-bar" style="background: #4285f4; height: 100%;"></div>
+                        <div class="purchase-bar" style="background: #ffa726; height: 85%;"></div>
+                        <div class="purchase-bar" style="background: #9c27b0; height: 90%;"></div>
+                        <div class="purchase-bar" style="background: #e91e63; height: 95%;"></div>
+                    </div>
+                    <div class="account-summary">
+                        <div class="account-text">Total investido em 6 meses</div>
+                        <div class="account-percentage">R$ 25.794</div>
+                    </div>
+                </div>
+
+                <div class="map-section">
+                    <div class="section-title">🌎 Distribuição Geográfica</div>
+                    <div style="color: #666; font-size: 14px; margin-bottom: 24px;">Empresas participantes por região</div>
+                    <div class="map-container">
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
+                            <div style="font-weight: 600; color: #333;">Brasil</div>
+                            <div style="font-size: 14px;">15 estados representados</div>
+                        </div>
+                    </div>
+                    <div class="account-summary">
+                        <div class="account-text">Cobertura nacional</div>
+                        <div class="account-percentage">87%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="timeline-section">
+            <h3 style="color: #333; margin-bottom: 25px; font-size: 20px; font-weight: 600;">📅 Cronograma de 6 Meses - Programa de Mentoria</h3>
+            <div class="timeline-grid">
+                <div class="timeline-card" style="background: linear-gradient(135deg, #ff6b9d 0%, #ff8a9b 100%); box-shadow: 0 4px 20px rgba(255,107,157,0.3);">
+                    <div class="timeline-month">Mês 1</div>
+                    <div class="timeline-title">Diagnóstico e Planejamento</div>
+                    <div class="timeline-description">Sessões de diagnóstico individual, workshop de fundamentos de liderança e definição de metas.</div>
+                </div>
+                <div class="timeline-card" style="background: linear-gradient(135deg, #00d4aa 0%, #26e7a6 100%); box-shadow: 0 4px 20px rgba(0,212,170,0.3);">
+                    <div class="timeline-month">Mês 2</div>
+                    <div class="timeline-title">Gestão por Indicadores</div>
+                    <div class="timeline-description">Implementação de KPIs, workshop de gestão por resultados e mentoria em grupo.</div>
+                </div>
+                <div class="timeline-card" style="background: linear-gradient(135deg, #4285f4 0%, #5a9cff 100%); box-shadow: 0 4px 20px rgba(66,133,244,0.3);">
+                    <div class="timeline-month">Mês 3</div>
+                    <div class="timeline-title">Coaching e Desenvolvimento</div>
+                    <div class="timeline-description">Técnicas de coaching, workshop de feedback efetivo e implementação de 1:1s.</div>
+                </div>
+                <div class="timeline-card" style="background: linear-gradient(135deg, #ffa726 0%, #ffb74d 100%); box-shadow: 0 4px 20px rgba(255,167,38,0.3);">
+                    <div class="timeline-month">Mês 4</div>
+                    <div class="timeline-title">Performance e Produtividade</div>
+                    <div class="timeline-description">Gestão de performance, técnicas de vendas avançadas e otimização de processos.</div>
+                </div>
+                <div class="timeline-card" style="background: linear-gradient(135deg, #9c27b0 0%, #ba68c8 100%); box-shadow: 0 4px 20px rgba(156,39,176,0.3);">
+                    <div class="timeline-month">Mês 5</div>
+                    <div class="timeline-title">Implementação e Refinamento</div>
+                    <div class="timeline-description">Resolução de desafios específicos, liderança situacional e boas práticas.</div>
+                </div>
+                <div class="timeline-card" style="background: linear-gradient(135deg, #e91e63 0%, #f06292 100%); box-shadow: 0 4px 20px rgba(233,30,99,0.3);">
+                    <div class="timeline-month">Mês 6</div>
+                    <div class="timeline-title">Consolidação e Futuro</div>
+                    <div class="timeline-description">Avaliação final, sustentabilidade dos resultados e certificação.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interatividade para os gráficos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animação das barras do gráfico
+            const chartBars = document.querySelectorAll('.chart-bar');
+            chartBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.opacity = '0';
+                    bar.style.transform = 'translateY(20px)';
+                    bar.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        bar.style.opacity = '1';
+                        bar.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+
+            // Animação dos cards de métricas
+            const metricCards = document.querySelectorAll('.metric-card');
+            metricCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateX(-20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateX(0)';
+                    }, 100);
+                }, index * 150);
+            });
+
+            // Animação dos cards da timeline
+            const timelineCards = document.querySelectorAll('.timeline-card');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            timelineCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Tooltip para barras do gráfico
+            chartBars.forEach(bar => {
+                bar.addEventListener('mouseenter', function() {
+                    const value = this.querySelector('.chart-bar-value').textContent;
+                    const label = this.querySelector('.chart-bar-label').textContent;
+                    
+                    // Criar tooltip simples
+                    const tooltip = document.createElement('div');
+                    tooltip.style.cssText = `
+                        position: fixed;
+                        background: rgba(0,0,0,0.8);
+                        color: white;
+                        padding: 8px 12px;
+                        border-radius: 6px;
+                        font-size: 12px;
+                        pointer-events: none;
+                        z-index: 1000;
+                        transition: opacity 0.3s ease;
+                    `;
+                    tooltip.textContent = `${label}: ${value}`;
+                    document.body.appendChild(tooltip);
+                    
+                    this.addEventListener('mousemove', function(e) {
+                        tooltip.style.left = e.clientX + 10 + 'px';
+                        tooltip.style.top = e.clientY - 30 + 'px';
+                    });
+                    
+                    this.addEventListener('mouseleave', function() {
+                        document.body.removeChild(tooltip);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
